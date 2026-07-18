@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>stera studio — oyunlar yapıyoruz</title>
+  <meta name="description" content="stera studio: bağımsız bir oyun stüdyosu. ilk oyunumuz üzerinde çalışıyoruz.">
+  <link rel="icon" href="stera-logo.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="style.css">
+  <script src="main.js" defer></script>
+</head>
+<body>
+
+  <nav>
+    <span class="wordmark">stera studio</span>
+    <div class="links">
+      <a href="#oyunlar">oyunlar</a>
+      <a href="#hakkimizda">hakkımızda</a>
+      <a href="#iletisim">iletişim</a>
+    </div>
+  </nav>
+
+  <!-- yaşayan logo -->
+  <div id="mascot" data-state="awake" data-eyes="open" aria-hidden="true">
+    <div id="stage">
+      <div id="breath">
+        <svg id="logoSvg" viewBox="0 0 500 500">
+          <defs>
+            <g id="sShape" transform="translate(0,500) scale(0.1,-0.1)">
+              <path d="M2165 3916 c-138 -29 -216 -56 -330 -111 -412 -200 -708 -597 -779
+                -1041 -19 -119 -21 -354 -5 -455 l12 -69 1083 0 c595 0 1085 -4 1088 -8 9 -15
+                -65 -148 -124 -223 -82 -103 -168 -172 -285 -229 -150 -73 -203 -85 -380 -84
+                -141 1 -155 2 -245 33 -106 36 -199 87 -291 161 l-62 50 -339 0 c-226 0 -338
+                -3 -338 -10 0 -6 11 -32 24 -58 126 -248 363 -481 621 -610 276 -138 588 -183
+                898 -128 643 115 1123 666 1154 1325 5 115 -7 304 -23 345 -6 15 -97 16 -1090
+                16 -861 0 -1084 3 -1084 13 0 6 18 45 40 85 220 403 695 561 1103 367 69 -32
+                187 -114 216 -148 12 -15 50 -17 363 -17 329 0 350 1 344 18 -4 9 -25 49 -48
+                89 -126 221 -338 429 -568 556 -101 56 -241 105 -375 132 -170 35 -417 35
+                -580 1z"/>
+            </g>
+            <clipPath id="clipTop"><rect x="-100" y="-100" width="700" height="351"/></clipPath>
+            <clipPath id="clipBot"><rect x="-100" y="249" width="700" height="351"/></clipPath>
+          </defs>
+          <g class="half halfTop" clip-path="url(#clipTop)"><use href="#sShape"/></g>
+          <g class="half halfBot" clip-path="url(#clipBot)"><use href="#sShape"/></g>
+          <g id="face">
+            <g class="eye" id="eyeL" transform="translate(218 150)">
+              <g class="lid">
+                <circle class="sclera" r="15"/>
+                <circle class="pupil" id="pupilL" r="7"/>
+              </g>
+            </g>
+            <g class="eye" id="eyeR" transform="translate(282 150)">
+              <g class="lid">
+                <circle class="sclera" r="15"/>
+                <circle class="pupil" id="pupilR" r="7"/>
+              </g>
+            </g>
+          </g>
+        </svg>
+      </div>
+    </div>
+    <div id="bubble"><span id="bubbleText"></span></div>
+  </div>
+
+  <header class="hero">
+    <h1 class="visually-hidden">stera studio</h1>
+    <p class="tagline">oyunlar yapıyoruz.</p>
+    <p class="hint">kaydır ↓</p>
+  </header>
+
+  <main>
+    <section id="oyunlar" data-msg="oyunlarımız… yakında. söz.">
+      <h2><span class="index">01</span> oyunlar</h2>
+      <p class="lead">ilk oyunumuz üzerinde çalışıyoruz. şimdilik bu kadarını söyleyebiliriz:</p>
+      <div class="cards">
+        <div class="card"><span class="q">?</span><span class="soon">yakında</span></div>
+        <div class="card"><span class="q">?</span><span class="soon">yakında</span></div>
+        <div class="card"><span class="q">?</span><span class="soon">çok yakında</span></div>
+      </div>
+    </section>
+
+    <section id="hakkimizda" data-msg="evet, bunlar biziz.">
+      <h2><span class="index">02</span> hakkımızda</h2>
+      <p class="lead">
+        stera studio, küçük ama iddialı bağımsız bir oyun stüdyosu.
+        az kişiyiz, çok hayalimiz var. oynaması kadar yapması da keyifli
+        oyunlar peşindeyiz — detaylar yakında.
+      </p>
+    </section>
+
+    <section id="iletisim" data-msg="bize yazın, cevap veririz!">
+      <h2><span class="index">03</span> iletişim</h2>
+      <p class="lead">bir fikriniz mi var? sadece merhaba mı demek istediniz?</p>
+      <a class="mail" href="mailto:hello@stera.studio">hello@stera.studio</a>
+      <div class="socials">
+        <a href="#">itch.io</a><a href="#">x</a><a href="#">instagram</a><a href="#">youtube</a>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <p>© 2026 stera studio — logomuz canlıdır, nazik olun.</p>
+  </footer>
+
+</body>
+</html>
