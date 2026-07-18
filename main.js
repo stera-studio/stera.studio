@@ -94,7 +94,7 @@
       const t = L.dom[el.dataset.i18n];
       if (t) el.textContent = t;
     });
-    langBtn.textContent = l === "tr" ? "en" : "tr";
+    langBtn.textContent = l;
   }
   applyLang(lang);
   langBtn.addEventListener("click", () => applyLang(lang === "tr" ? "en" : "tr"));
