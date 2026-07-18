@@ -14,9 +14,10 @@
   <nav>
     <span class="wordmark">stera studio</span>
     <div class="links">
-      <a href="#oyunlar">oyunlar</a>
-      <a href="#hakkimizda">hakkımızda</a>
-      <a href="#iletisim">iletişim</a>
+      <a href="#oyunlar" data-i18n="nav.games">oyunlar</a>
+      <a href="#hakkimizda" data-i18n="nav.about">hakkımızda</a>
+      <a href="#iletisim" data-i18n="nav.contact">iletişim</a>
+      <button id="langBtn" type="button" aria-label="switch language">en</button>
     </div>
   </nav>
 
@@ -65,33 +66,33 @@
 
   <header class="hero">
     <h1 class="visually-hidden">stera studio</h1>
-    <p class="tagline">oyunlar yapıyoruz.</p>
-    <p class="hint">kaydır ↓</p>
+    <p class="tagline" data-i18n="tagline">oyunlar yapıyoruz.</p>
+    <p class="hint" data-i18n="hint">kaydır ↓</p>
   </header>
 
   <main>
-    <section id="oyunlar" data-msg="oyunlarımız… yakında. söz.">
-      <h2><span class="index">01</span> oyunlar</h2>
-      <p class="lead">ilk oyunumuz üzerinde çalışıyoruz. şimdilik bu kadarını söyleyebiliriz:</p>
+    <section id="oyunlar">
+      <h2><span class="index">01</span> <span data-i18n="games.h">oyunlar</span></h2>
+      <p class="lead" data-i18n="games.lead">ilk oyunumuz üzerinde çalışıyoruz. şimdilik bu kadarını söyleyebiliriz:</p>
       <div class="cards">
-        <div class="card"><span class="q">?</span><span class="soon">yakında</span></div>
-        <div class="card"><span class="q">?</span><span class="soon">yakında</span></div>
-        <div class="card"><span class="q">?</span><span class="soon">çok yakında</span></div>
+        <div class="card"><span class="q">?</span><span class="soon" data-i18n="soon">yakında</span></div>
+        <div class="card"><span class="q">?</span><span class="soon" data-i18n="soon">yakında</span></div>
+        <div class="card"><span class="q">?</span><span class="soon" data-i18n="verysoon">çok yakında</span></div>
       </div>
     </section>
 
-    <section id="hakkimizda" data-msg="evet, bunlar biziz.">
-      <h2><span class="index">02</span> hakkımızda</h2>
-      <p class="lead">
+    <section id="hakkimizda">
+      <h2><span class="index">02</span> <span data-i18n="about.h">hakkımızda</span></h2>
+      <p class="lead" data-i18n="about.lead">
         stera studio, küçük ama iddialı bağımsız bir oyun stüdyosu.
         az kişiyiz, çok hayalimiz var. oynaması kadar yapması da keyifli
         oyunlar peşindeyiz — detaylar yakında.
       </p>
     </section>
 
-    <section id="iletisim" data-msg="bize yazın, cevap veririz!">
-      <h2><span class="index">03</span> iletişim</h2>
-      <p class="lead">bir fikriniz mi var? sadece merhaba mı demek istediniz?</p>
+    <section id="iletisim">
+      <h2><span class="index">03</span> <span data-i18n="contact.h">iletişim</span></h2>
+      <p class="lead" data-i18n="contact.lead">bir fikriniz mi var? sadece merhaba mı demek istediniz?</p>
       <a class="mail" href="mailto:hello@stera.studio">hello@stera.studio</a>
       <div class="socials">
         <a href="#">itch.io</a><a href="#">x</a><a href="#">instagram</a><a href="#">youtube</a>
@@ -100,7 +101,7 @@
   </main>
 
   <footer>
-    <p>© 2026 stera studio — logomuz canlıdır, nazik olun.</p>
+    <p data-i18n="footer">© 2026 stera studio — logomuz canlıdır, nazik olun.</p>
   </footer>
 
 </body>

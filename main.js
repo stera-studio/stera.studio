@@ -17,6 +17,88 @@
   const PARAMS = new URLSearchParams(location.search);
   const STATIC = PARAMS.has("static");
 
+  // ---------- lokalizasyon ----------
+  const I18N = {
+    tr: {
+      title: "stera studio — oyunlar yapıyoruz",
+      desc: "stera studio: bağımsız bir oyun stüdyosu. ilk oyunumuz üzerinde çalışıyoruz.",
+      dom: {
+        "nav.games": "oyunlar", "nav.about": "hakkımızda", "nav.contact": "iletişim",
+        "tagline": "oyunlar yapıyoruz.", "hint": "kaydır ↓",
+        "games.h": "oyunlar",
+        "games.lead": "ilk oyunumuz üzerinde çalışıyoruz. şimdilik bu kadarını söyleyebiliriz:",
+        "soon": "yakında", "verysoon": "çok yakında",
+        "about.h": "hakkımızda",
+        "about.lead": "stera studio, küçük ama iddialı bağımsız bir oyun stüdyosu. az kişiyiz, çok hayalimiz var. oynaması kadar yapması da keyifli oyunlar peşindeyiz — detaylar yakında.",
+        "contact.h": "iletişim",
+        "contact.lead": "bir fikriniz mi var? sadece merhaba mı demek istediniz?",
+        "footer": "© 2026 stera studio — logomuz canlıdır, nazik olun.",
+      },
+      intro: "merhaba, biz stera.",
+      poke: ["hihi.", "bir daha!", "gıdıklanıyorum.", "bunu sevdim.", "hey!"],
+      dizzy: "of… başım döndü.",
+      bored: "sıkıldım…",
+      sleep: "zZz…",
+      sections: {
+        oyunlar: "oyunlarımız… yakında. söz.",
+        hakkimizda: "evet, bunlar biziz.",
+        iletisim: "bize yazın, cevap veririz!",
+      },
+    },
+    en: {
+      title: "stera studio — we make games",
+      desc: "stera studio: an independent game studio. we're working on our first game.",
+      dom: {
+        "nav.games": "games", "nav.about": "about", "nav.contact": "contact",
+        "tagline": "we make games.", "hint": "scroll ↓",
+        "games.h": "games",
+        "games.lead": "we're working on our first game. this is all we can say for now:",
+        "soon": "soon", "verysoon": "very soon",
+        "about.h": "about",
+        "about.lead": "stera studio is a small but ambitious independent game studio. few people, many dreams. we chase games that are as fun to make as they are to play — details soon.",
+        "contact.h": "contact",
+        "contact.lead": "got an idea? or just wanted to say hi?",
+        "footer": "© 2026 stera studio — our logo is alive, please be gentle.",
+      },
+      intro: "hi, we're stera.",
+      poke: ["hehe.", "again!", "that tickles.", "i liked that.", "hey!"],
+      dizzy: "whoa… my head is spinning.",
+      bored: "i'm bored…",
+      sleep: "zZz…",
+      sections: {
+        oyunlar: "our games… soon. promise.",
+        hakkimizda: "yep, that's us.",
+        iletisim: "write to us — we reply!",
+      },
+    },
+  };
+
+  let lang =
+    PARAMS.get("lang") ||
+    localStorage.getItem("stera-lang") ||
+    ((navigator.language || "en").toLowerCase().startsWith("tr") ? "tr" : "en");
+  if (!I18N[lang]) lang = "en";
+  let L = I18N[lang];
+
+  const langBtn = document.getElementById("langBtn");
+
+  function applyLang(l) {
+    lang = l;
+    L = I18N[l];
+    try { localStorage.setItem("stera-lang", l); } catch (e) {}
+    document.documentElement.lang = l;
+    document.title = L.title;
+    const desc = document.querySelector('meta[name="description"]');
+    if (desc) desc.setAttribute("content", L.desc);
+    document.querySelectorAll("[data-i18n]").forEach((el) => {
+      const t = L.dom[el.dataset.i18n];
+      if (t) el.textContent = t;
+    });
+    langBtn.textContent = l === "tr" ? "en" : "tr";
+  }
+  applyLang(lang);
+  langBtn.addEventListener("click", () => applyLang(lang === "tr" ? "en" : "tr"));
+
   // ---------- durum ----------
   const S = {
     x: innerWidth / 2, y: innerHeight * 0.42, size: 100,
@@ -111,7 +193,6 @@
   }
 
   // ---------- dürtme ----------
-  const POKE_MSGS = ["hihi.", "bir daha!", "gıdıklanıyorum.", "bunu sevdim.", "hey!"];
   let pokeIdx = 0;
 
   function particles(x, y) {
@@ -152,9 +233,9 @@
     if (pokeTimes.length >= 6) {
       pokeTimes = [];
       S.spinExtraTarget += 360;
-      say("of… başım döndü.", 2200);
+      say(L.dizzy, 2200);
     } else {
-      say(POKE_MSGS[pokeIdx++ % POKE_MSGS.length], 1400);
+      say(L.poke[pokeIdx++ % L.poke.length], 1400);
     }
   }
 
@@ -175,7 +256,8 @@
       entries.forEach((en) => {
         if (en.isIntersecting && introDone && scrollY > innerHeight * 0.4) {
           S.hop.vel -= 6;
-          say(en.target.dataset.msg, 2600);
+          const msg = L.sections[en.target.id];
+          if (msg) say(msg, 2600);
           if (en.target.id === "iletisim") {
             eyeL.classList.add("wink");
             setTimeout(() => eyeL.classList.remove("wink"), 500);
@@ -185,7 +267,7 @@
     },
     { threshold: 0.45 }
   );
-  document.querySelectorAll("section[data-msg]").forEach((s) => io.observe(s));
+  document.querySelectorAll("main section").forEach((s) => io.observe(s));
 
   // ---------- gözbebekleri ----------
   function updatePupils() {
@@ -252,10 +334,10 @@
       if (idle > 26000 && st !== "sleep") {
         mascot.dataset.state = "sleep";
         mascot.dataset.eyes = "closed";
-        say("zZz…", Infinity);
+        say(L.sleep, Infinity);
       } else if (idle > 12000 && st === "awake") {
         mascot.dataset.state = "bored";
-        say("sıkıldım…", 2000);
+        say(L.bored, 2000);
       }
     }
 
@@ -281,7 +363,7 @@
     setTimeout(() => {
       introDone = true;
       lastActive = Date.now();
-      say("merhaba, biz stera.", 2800);
+      say(L.intro, 2800);
       scheduleBlink();
     }, RM ? 200 : 1700);
   }

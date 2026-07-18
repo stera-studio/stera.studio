@@ -57,6 +57,21 @@ nav .links a {
   transition: opacity 0.2s;
 }
 nav .links a:hover { opacity: 1; }
+nav .links button {
+  background: none;
+  border: 1px solid currentColor;
+  border-radius: 999px;
+  color: inherit;
+  font: inherit;
+  font-size: 0.8rem;
+  letter-spacing: 0.04em;
+  padding: 2px 12px;
+  margin-left: 24px;
+  cursor: pointer;
+  opacity: 0.75;
+  transition: opacity 0.2s;
+}
+nav .links button:hover { opacity: 1; }
 
 /* ---------- yaşayan logo ---------- */
 #mascot {
