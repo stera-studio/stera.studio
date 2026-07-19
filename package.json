@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "description": "stera studio — independent game studio website",
   "private": true,
+  "type": "module",
   "scripts": {
     "start": "serve -l 3000 .",
     "dev": "serve -l 3000 ."

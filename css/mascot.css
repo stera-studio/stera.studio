@@ -1,0 +1,95 @@
+/* the living logo */
+#mascot {
+  position: fixed;
+  left: 0;
+  top: 0;
+  z-index: 40;
+  pointer-events: none;
+  /* keep the logo centered even without JS */
+  transform: translate3d(50vw, 42vh, 0);
+}
+#stage {
+  position: absolute;
+  width: 52vmin;
+  height: 52vmin;
+  transform: translate(-50%, -50%);
+}
+#breath { width: 100%; height: 100%; }
+#logoSvg {
+  width: 100%;
+  height: 100%;
+  display: block;
+  overflow: visible;
+  pointer-events: auto;
+  cursor: pointer;
+  touch-action: manipulation;
+  user-select: none;
+}
+
+.half { fill: var(--ink); transition: transform 1s cubic-bezier(0.3, 1.3, 0.4, 1); }
+.halfTop { transform: translateX(-900px); }
+.halfBot { transform: translateX(900px); transition-delay: 0.08s; }
+#logoSvg.assembled .halfTop,
+#logoSvg.assembled .halfBot { transform: translateX(0); }
+
+#face { opacity: 0; transition: opacity 0.4s; }
+#face.faceIn { opacity: 1; }
+
+.sclera { fill: var(--paper); }
+.pupil { fill: var(--ink); }
+.eye .lid {
+  transform-box: fill-box;
+  transform-origin: center;
+  transition: transform 0.12s ease-out;
+}
+#mascot[data-eyes="closed"] .lid { transform: scaleY(0.07); }
+#mascot[data-eyes="happy"] .lid { transform: scaleY(0.35); }
+#mascot[data-eyes="dizzy"] .lid { transform: scaleY(0.5) rotate(12deg); }
+.eye.wink .lid { transform: scaleY(0.07); }
+
+#mascot[data-state="sleep"] #breath { animation: breathe 3.2s ease-in-out infinite; }
+#mascot[data-state="bored"] #breath { animation: sway 2.6s ease-in-out infinite; }
+@keyframes breathe { 50% { transform: scale(1.035, 0.965); } }
+@keyframes sway {
+  0%, 100% { transform: rotate(0deg); }
+  25% { transform: rotate(2.5deg); }
+  75% { transform: rotate(-2.5deg); }
+}
+
+/* speech bubble */
+#bubble {
+  position: absolute;
+  min-width: 40px;
+  max-width: 240px;
+  background: var(--paper);
+  color: var(--ink);
+  border: 2px solid var(--ink);
+  border-radius: 14px;
+  border-bottom-left-radius: 3px;
+  padding: 8px 14px;
+  font-size: 14px;
+  white-space: nowrap;
+  opacity: 0;
+  scale: 0.6;
+  transform-origin: bottom left;
+  transition: opacity 0.25s, scale 0.25s cubic-bezier(0.3, 1.5, 0.5, 1);
+}
+#bubble.show { opacity: 1; scale: 1; }
+
+/* poke particles */
+.pt {
+  position: fixed;
+  width: 9px;
+  height: 9px;
+  background: var(--accent);
+  pointer-events: none;
+  z-index: 60;
+}
+.pt.round { border-radius: 50%; }
+.pt.tri { clip-path: polygon(50% 0, 100% 100%, 0 100%); }
+
+@media (prefers-reduced-motion: reduce) {
+  .half { transition: none; }
+  #mascot[data-state="sleep"] #breath,
+  #mascot[data-state="bored"] #breath { animation: none; }
+}

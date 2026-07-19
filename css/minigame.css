@@ -1,0 +1,186 @@
+/* stera chase minigame */
+.btn {
+  background: none;
+  border: 2px solid var(--ink);
+  border-radius: 999px;
+  color: var(--ink);
+  font: inherit;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  padding: 10px 28px;
+  cursor: pointer;
+  transition: background 0.2s, color 0.2s, transform 0.2s, opacity 0.3s;
+}
+.btn:hover {
+  background: var(--ink);
+  color: var(--paper);
+  transform: translateY(-2px);
+}
+
+#jumpInBtn {
+  width: fit-content;
+  margin-bottom: 28px;
+}
+#minigame[data-game="on"] #jumpInBtn {
+  opacity: 0.2;
+  pointer-events: none;
+}
+
+#gameBox {
+  position: relative;
+  height: min(62vh, 440px);
+  border: 2px solid var(--ink);
+  border-radius: 12px;
+  overflow: hidden;
+  touch-action: none;
+  user-select: none;
+}
+#gameBox::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 42px;
+  border-top: 2px solid var(--ink);
+  opacity: 0.2;
+  pointer-events: none;
+  transition: opacity 0.3s;
+}
+#minigame[data-game="on"] #gameBox::after { opacity: 0; }
+
+#gameHud {
+  position: absolute;
+  top: 14px;
+  right: 18px;
+  font-size: 0.85rem;
+  letter-spacing: 0.06em;
+  color: var(--muted);
+  opacity: 0;
+  transition: opacity 0.3s;
+  z-index: 4;
+}
+#minigame[data-game="on"] #gameHud { opacity: 1; }
+#gameHud #hudScore { color: var(--ink); font-weight: 700; }
+
+#gameField { position: absolute; inset: 0; }
+
+#terrainSvg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+  pointer-events: none;
+}
+#terrainPath { fill: var(--ink); }
+#spikePath { fill: var(--accent); }
+
+.trap {
+  position: absolute;
+  left: 0;
+  top: 0;
+  will-change: transform;
+  z-index: 2;
+}
+.trap.block {
+  height: 16px;
+  background: var(--accent);
+  border-radius: 6px;
+}
+
+.minion {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 30px;
+  height: 30px;
+  z-index: 2;
+  will-change: transform;
+  pointer-events: none;
+}
+.minion svg {
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+  animation: chaserWobble 0.5s ease-in-out infinite;
+}
+.minion .cloud { fill: var(--ink); }
+.minion .ceye { fill: var(--accent); }
+
+#chaser {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 80px;
+  height: 80px;
+  z-index: 3;
+  will-change: transform;
+  display: none;
+  pointer-events: none;
+}
+#minigame[data-game="on"] #chaser { display: block; }
+#chaser svg { width: 100%; height: 100%; overflow: visible; }
+#chaser .cloud { fill: var(--ink); }
+#chaser .ceye { fill: var(--accent); }
+@keyframes chaserWobble {
+  0%, 100% { rotate: -5deg; }
+  50% { rotate: 6deg; }
+}
+#chaser svg { animation: chaserWobble 0.9s ease-in-out infinite; }
+
+.deco {
+  position: absolute;
+  left: 0;
+  top: 0;
+  color: var(--ink);
+  font-weight: 800;
+  line-height: 1;
+  pointer-events: none;
+  will-change: transform;
+  z-index: 0;
+}
+.deco.circle {
+  border: 2px solid var(--ink);
+  border-radius: 50%;
+}
+.deco.tri {
+  background: var(--ink);
+  clip-path: polygon(50% 0, 100% 100%, 0 100%);
+}
+
+#gameOverlay {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 18px;
+  background: color-mix(in srgb, var(--paper) 78%, transparent);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.25s;
+  z-index: 5;
+}
+#gameBox.over #gameOverlay {
+  opacity: 1;
+  pointer-events: auto;
+}
+.ovLine { font-size: 1.1rem; letter-spacing: 0.04em; }
+.ovLine b { font-weight: 800; }
+.ovBtns { display: flex; gap: 12px; }
+
+@keyframes shake {
+  0%, 100% { transform: translateX(0); }
+  20% { transform: translateX(-6px); }
+  40% { transform: translateX(5px); }
+  60% { transform: translateX(-4px); }
+  80% { transform: translateX(3px); }
+}
+#gameBox.shake { animation: shake 0.45s; }
+
+@media (prefers-reduced-motion: reduce) {
+  #gameBox.shake,
+  #chaser svg,
+  .minion svg { animation: none; }
+}
