@@ -194,8 +194,14 @@ export function render(gameActive) {
   stage.style.transform = `translate(-50%,-50%) rotate(${S.lean.toFixed(2)}deg) scale(${(1 + sq).toFixed(3)}, ${(1 - sq).toFixed(3)})`;
   logoSvg.style.transform = `rotate(${S.spin.toFixed(2)}deg)`;
 
-  bubble.style.left = (S.size * 0.34).toFixed(0) + "px";
-  bubble.style.top = (-S.size * 0.58).toFixed(0) + "px";
+  // anchored by its bottom edge so longer texts grow upward, and clamped
+  // horizontally so it never leaves the viewport on narrow screens
+  if (bubble.classList.contains("show")) {
+    const absLeft = clamp(S.x + S.size * 0.34, 12, Math.max(12, innerWidth - 12 - bubble.offsetWidth));
+    bubble.style.left = (absLeft - S.x).toFixed(0) + "px";
+    bubble.style.bottom = (S.size * 0.58).toFixed(0) + "px";
+    bubble.style.top = "auto";
+  }
 
   updatePupils();
 
