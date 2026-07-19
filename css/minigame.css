@@ -74,6 +74,7 @@
 }
 #terrainPath { fill: var(--ink); }
 #spikePath { fill: var(--accent); }
+#lavaPath { fill: var(--bad); }
 
 .trap {
   position: absolute;
@@ -104,8 +105,8 @@
   overflow: visible;
   animation: chaserWobble 0.5s ease-in-out infinite;
 }
-.minion .cloud { fill: var(--ink); }
-.minion .ceye { fill: var(--accent); }
+.minion .cloud { fill: var(--bad); }
+.minion .ceye { fill: #fff; }
 
 #chaser {
   position: absolute;
@@ -120,8 +121,8 @@
 }
 #minigame[data-game="on"] #chaser { display: block; }
 #chaser svg { width: 100%; height: 100%; overflow: visible; }
-#chaser .cloud { fill: var(--ink); }
-#chaser .ceye { fill: var(--accent); }
+#chaser .cloud { fill: var(--bad); }
+#chaser .ceye { fill: #fff; }
 @keyframes chaserWobble {
   0%, 100% { rotate: -5deg; }
   50% { rotate: 6deg; }
@@ -156,11 +157,13 @@
   align-items: center;
   justify-content: center;
   gap: 18px;
-  background: color-mix(in srgb, var(--paper) 78%, transparent);
+  background: color-mix(in srgb, var(--paper) 93%, transparent);
   opacity: 0;
   pointer-events: none;
   transition: opacity 0.25s;
-  z-index: 5;
+  /* above the fixed mascot layer (z 40) so the buttons never hide
+     behind the logo or its speech bubble */
+  z-index: 45;
 }
 #gameBox.over #gameOverlay {
   opacity: 1;

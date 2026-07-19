@@ -1,10 +1,10 @@
 <!DOCTYPE html>
-<html lang="tr">
+<html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>stera studio — oyunlar yapıyoruz</title>
-  <meta name="description" content="stera studio: bağımsız bir oyun stüdyosu. ilk oyunumuz üzerinde çalışıyoruz.">
+  <title>stera studio — we make games</title>
+  <meta name="description" content="stera studio: an independent game studio. we're working on our first game.">
   <link rel="icon" href="assets/stera-logo.svg" type="image/svg+xml">
   <link rel="stylesheet" href="css/base.css">
   <link rel="stylesheet" href="css/mascot.css">
@@ -16,11 +16,10 @@
   <nav>
     <span class="wordmark">stera studio</span>
     <div class="links">
-      <a href="#games" data-i18n="nav.games">oyunlar</a>
-      <a href="#about" data-i18n="nav.about">hakkımızda</a>
-      <a href="#contact" data-i18n="nav.contact">iletişim</a>
+      <a href="#games" data-i18n="nav.games">games</a>
+      <a href="#about" data-i18n="nav.about">about</a>
+      <a href="#contact" data-i18n="nav.contact">contact</a>
       <a href="#minigame" data-i18n="nav.minigame">minigame</a>
-      <button id="langBtn" type="button" aria-label="switch language">en</button>
     </div>
   </nav>
 
@@ -69,33 +68,33 @@
 
   <header class="hero">
     <h1 class="visually-hidden">stera studio</h1>
-    <p class="tagline" data-i18n="tagline">oyunlar yapıyoruz.</p>
-    <p class="hint" data-i18n="hint">kaydır ↓</p>
+    <p class="tagline" data-i18n="tagline">we make games.</p>
+    <p class="hint" data-i18n="hint">scroll ↓</p>
   </header>
 
   <main>
     <section id="games">
-      <h2><span class="index">01</span> <span data-i18n="games.h">oyunlar</span></h2>
-      <p class="lead" data-i18n="games.lead">ilk oyunumuz üzerinde çalışıyoruz. şimdilik bu kadarını söyleyebiliriz:</p>
+      <h2><span class="index">01</span> <span data-i18n="games.h">games</span></h2>
+      <p class="lead" data-i18n="games.lead">we're working on our first game. this is all we can say for now:</p>
       <div class="cards">
-        <div class="card"><span class="q">?</span><span class="soon" data-i18n="soon">yakında</span></div>
-        <div class="card"><span class="q">?</span><span class="soon" data-i18n="soon">yakında</span></div>
-        <div class="card"><span class="q">?</span><span class="soon" data-i18n="verysoon">çok yakında</span></div>
+        <div class="card"><span class="q">?</span><span class="soon" data-i18n="soon">soon</span></div>
+        <div class="card"><span class="q">?</span><span class="soon" data-i18n="soon">soon</span></div>
+        <div class="card"><span class="q">?</span><span class="soon" data-i18n="verysoon">very soon</span></div>
       </div>
     </section>
 
     <section id="about">
-      <h2><span class="index">02</span> <span data-i18n="about.h">hakkımızda</span></h2>
+      <h2><span class="index">02</span> <span data-i18n="about.h">about</span></h2>
       <p class="lead" data-i18n="about.lead">
-        stera studio, küçük ama iddialı bağımsız bir oyun stüdyosu.
-        az kişiyiz, çok hayalimiz var. oynaması kadar yapması da keyifli
-        oyunlar peşindeyiz — detaylar yakında.
+        stera studio is a small but ambitious independent game studio.
+        few people, many dreams. we chase games that are as fun to make
+        as they are to play — details soon.
       </p>
     </section>
 
     <section id="contact">
-      <h2><span class="index">03</span> <span data-i18n="contact.h">iletişim</span></h2>
-      <p class="lead" data-i18n="contact.lead">bir fikriniz mi var? sadece merhaba mı demek istediniz?</p>
+      <h2><span class="index">03</span> <span data-i18n="contact.h">contact</span></h2>
+      <p class="lead" data-i18n="contact.lead">got an idea? or just wanted to say hi?</p>
       <a class="mail" href="mailto:hello@stera.studio">hello@stera.studio</a>
       <div class="socials">
         <a href="#">itch.io</a><a href="#">x</a><a href="#">instagram</a><a href="#">youtube</a>
@@ -104,11 +103,11 @@
 
     <section id="minigame">
       <h2><span class="index">04</span> <span data-i18n="mg.h">minigame</span></h2>
-      <p class="lead" data-i18n="mg.lead">henüz bir oyunumuz yok ama siz sıkılmayın diye küçük bir şey hazırladık.</p>
-      <button id="jumpInBtn" class="btn" type="button" data-i18n="mg.btn">oyuna atla</button>
+      <p class="lead" data-i18n="mg.lead">we don't have a game yet, but we made a little something so you don't get bored.</p>
+      <button id="jumpInBtn" class="btn" type="button" data-i18n="mg.btn">jump in</button>
       <div id="gameBox">
-        <div id="gameHud"><span id="hudScore">0m</span> · <span data-i18n="mg.best">rekor</span> <span id="hudBest">0m</span></div>
-        <svg id="terrainSvg" aria-hidden="true"><path id="terrainPath"/><path id="spikePath"/></svg>
+        <div id="gameHud"><span id="hudScore">0m</span> · <span data-i18n="mg.best">best</span> <span id="hudBest">0m</span></div>
+        <svg id="terrainSvg" aria-hidden="true"><path id="lavaPath"/><path id="terrainPath"/><path id="spikePath"/></svg>
         <div id="gameField" aria-hidden="true">
           <div id="chaser">
             <svg viewBox="0 0 100 100">
@@ -120,10 +119,10 @@
           </div>
         </div>
         <div id="gameOverlay">
-          <p class="ovLine"><span data-i18n="mg.score">skor</span> <b id="ovScore">0m</b> · <span data-i18n="mg.best">rekor</span> <b id="ovBest">0m</b></p>
+          <p class="ovLine"><span data-i18n="mg.score">score</span> <b id="ovScore">0m</b> · <span data-i18n="mg.best">best</span> <b id="ovBest">0m</b></p>
           <div class="ovBtns">
-            <button id="againBtn" class="btn" type="button" data-i18n="mg.again">tekrar</button>
-            <button id="exitBtn" class="btn" type="button" data-i18n="mg.exit">çık</button>
+            <button id="againBtn" class="btn" type="button" data-i18n="mg.again">again</button>
+            <button id="exitBtn" class="btn" type="button" data-i18n="mg.exit">exit</button>
           </div>
         </div>
       </div>
@@ -131,7 +130,8 @@
   </main>
 
   <footer>
-    <p data-i18n="footer">© 2026 stera studio — logomuz canlıdır, nazik olun.</p>
+    <p data-i18n="footer">© 2026 stera studio — our logo is alive, please be gentle.</p>
+    <button id="langBtn" type="button" aria-label="switch language">en</button>
   </footer>
 
 </body>

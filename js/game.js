@@ -11,6 +11,7 @@ const gameField = document.getElementById("gameField");
 const terrainSvg = document.getElementById("terrainSvg");
 const terrainPath = document.getElementById("terrainPath");
 const spikePath = document.getElementById("spikePath");
+const lavaPath = document.getElementById("lavaPath");
 const chaserEl = document.getElementById("chaser");
 const hudScore = document.getElementById("hudScore");
 const hudBest = document.getElementById("hudBest");
@@ -132,7 +133,8 @@ function genTerrain(toX) {
       const farY = prevY - Math.random() * 20;
       G.pts.push({ x: G.genX, y: farY });
       G.genX += TSTEP;
-      G.pits.push({ x0, x1: G.genX - TSTEP, top: prevY });
+      // some open air below the rim, then lava
+      G.pits.push({ x0, x1: G.genX - TSTEP, top: prevY, lavaY: prevY + 110 });
       G.justWall = true;
     }
 
@@ -263,6 +265,7 @@ function exitGame() {
   clearWorld();
   terrainPath.setAttribute("d", "");
   spikePath.setAttribute("d", "");
+  lavaPath.setAttribute("d", "");
   setEyes("open");
   foldSpin();
   markActive();
@@ -308,6 +311,24 @@ function drawWorld() {
   spikePath.setAttribute("d", sd);
 
   const tNow = performance.now();
+
+  // lava pools with a gently waving surface; drawn under the terrain fill and
+  // extended into both walls so the pool seals against the pit edges
+  let ld = "";
+  const wob = RM ? 0 : tNow / 300;
+  for (const p of G.pits) {
+    if (p.x1 < G.camX || p.x0 > G.camX + G.w) continue;
+    const lx0 = p.x0 - 16, lx1 = p.x1 + 16;
+    let seg = "";
+    for (let x = lx0; x <= lx1; x += TSTEP) {
+      const y = p.lavaY + Math.sin(x * 0.08 + wob) * 3;
+      seg += (seg ? "L" : "M") + (x - G.camX).toFixed(1) + " " + (y - G.camY).toFixed(1) + " ";
+    }
+    seg += `L${(lx1 - G.camX).toFixed(1)} ${(p.top + 270 - G.camY).toFixed(1)}` +
+           `L${(lx0 - G.camX).toFixed(1)} ${(p.top + 270 - G.camY).toFixed(1)}Z`;
+    ld += seg;
+  }
+  lavaPath.setAttribute("d", ld);
   for (const mn of G.minions) {
     const my = (mn.y === undefined ? terrainY(mn.x) - 13 : mn.y) - 13 + Math.sin(tNow / 130 + mn.phase) * 2;
     mn.el.style.transform = `translate(${(mn.x - G.camX - 15).toFixed(1)}px, ${(my - G.camY).toFixed(1)}px)`;
@@ -470,9 +491,9 @@ export function gameStep(dt) {
     return;
   }
 
-  // falling into a pit
+  // touching the lava in a pit
   for (const p of G.pits) {
-    if (G.X > p.x0 && G.X < p.x1 && G.y > p.top + 70) {
+    if (G.X > p.x0 && G.X < p.x1 && G.y + pr > p.lavaY) {
       drawWorld();
       endRun(L.mgFall);
       return;

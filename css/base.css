@@ -3,6 +3,7 @@
   --paper: #ffffff;
   --ink: #101010;
   --accent: #ff4d00;
+  --bad: #e3242b;
   --muted: #8a8a8a;
 }
 @media (prefers-color-scheme: dark) {
@@ -39,10 +40,13 @@ nav {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 20px 32px;
+  padding: 16px 32px;
   z-index: 100;
-  mix-blend-mode: difference;
-  color: #fff;
+  color: var(--ink);
+  background: color-mix(in srgb, var(--paper) 92%, transparent);
+  -webkit-backdrop-filter: blur(8px);
+  backdrop-filter: blur(8px);
+  border-bottom: 1px solid color-mix(in srgb, var(--ink) 12%, transparent);
 }
 nav .wordmark {
   font-weight: 700;
@@ -58,21 +62,6 @@ nav .links a {
   transition: opacity 0.2s;
 }
 nav .links a:hover { opacity: 1; }
-nav .links button {
-  background: none;
-  border: 1px solid currentColor;
-  border-radius: 999px;
-  color: inherit;
-  font: inherit;
-  font-size: 0.8rem;
-  letter-spacing: 0.04em;
-  padding: 2px 12px;
-  margin-left: 24px;
-  cursor: pointer;
-  opacity: 0.75;
-  transition: opacity 0.2s;
-}
-nav .links button:hover { opacity: 1; }
 
 /* ---------- hero ---------- */
 .hero {
@@ -200,11 +189,30 @@ footer {
   color: var(--muted);
   letter-spacing: 0.04em;
 }
+footer #langBtn {
+  margin-top: 16px;
+  background: none;
+  border: 1px solid currentColor;
+  border-radius: 999px;
+  color: inherit;
+  font: inherit;
+  font-size: 0.8rem;
+  letter-spacing: 0.04em;
+  padding: 4px 16px;
+  cursor: pointer;
+  transition: color 0.2s, border-color 0.2s;
+}
+footer #langBtn:hover { color: var(--ink); }
 
 @media (max-width: 640px) {
   .cards { grid-template-columns: 1fr; }
-  nav { padding: 16px 20px; }
   main { padding: 0 20px; }
+
+  nav { padding: 12px 16px; }
+  nav .links a {
+    margin-left: 12px;
+    font-size: 0.8rem;
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {
