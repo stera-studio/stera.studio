@@ -19,6 +19,17 @@
     --muted: #7a7a7a;
   }
 }
+/* manual override (data-theme on <html>) beats the system preference */
+:root[data-theme="light"] {
+  --paper: #ffffff;
+  --ink: #101010;
+  --muted: #8a8a8a;
+}
+:root[data-theme="dark"] {
+  --paper: #0d0d0d;
+  --ink: #f2f2f2;
+  --muted: #7a7a7a;
+}
 
 * { margin: 0; padding: 0; box-sizing: border-box; }
 
@@ -195,8 +206,13 @@ footer {
   color: var(--muted);
   letter-spacing: 0.04em;
 }
-footer #langBtn {
+.footerBtns {
   margin-top: 16px;
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+}
+.footerBtns button {
   background: none;
   border: 1px solid currentColor;
   border-radius: 999px;
@@ -208,7 +224,7 @@ footer #langBtn {
   cursor: pointer;
   transition: color 0.2s, border-color 0.2s;
 }
-footer #langBtn:hover { color: var(--ink); }
+.footerBtns button:hover { color: var(--ink); }
 
 @media (max-width: 640px) {
   .cards { grid-template-columns: 1fr; }

@@ -1,10 +1,12 @@
 /* entry point: wires localization, the living logo and the minigame together */
 import { initI18n, L } from "./i18n.js";
+import { initTheme } from "./theme.js";
 import { ensureAudio } from "./audio.js";
 import { S, initMascot, scrollStep, render, say, poke, wink, isIntroDone } from "./mascot.js";
 import { gameMode, gameStep, doJump } from "./game.js";
 
 initI18n();
+initTheme();
 
 initMascot((x, y) => {
   // tapping the logo: a jump mid-game, a poke otherwise

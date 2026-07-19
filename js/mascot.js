@@ -194,13 +194,15 @@ export function render(gameActive) {
   stage.style.transform = `translate(-50%,-50%) rotate(${S.lean.toFixed(2)}deg) scale(${(1 + sq).toFixed(3)}, ${(1 - sq).toFixed(3)})`;
   logoSvg.style.transform = `rotate(${S.spin.toFixed(2)}deg)`;
 
-  // anchored by its bottom edge so longer texts grow upward, and clamped
-  // horizontally so it never leaves the viewport on narrow screens
+  // sits beside the logo's upper right, clamped into the viewport
+  // (below the navbar, off the screen edges) on small screens
   if (bubble.classList.contains("show")) {
-    const absLeft = clamp(S.x + S.size * 0.34, 12, Math.max(12, innerWidth - 12 - bubble.offsetWidth));
+    const bw = bubble.offsetWidth, bh = bubble.offsetHeight;
+    const absLeft = clamp(S.x + S.size * 0.34, 12, Math.max(12, innerWidth - 12 - bw));
+    const absTop = clamp(S.y - S.size * 0.58, 64, Math.max(64, innerHeight - bh - 12));
     bubble.style.left = (absLeft - S.x).toFixed(0) + "px";
-    bubble.style.bottom = (S.size * 0.58).toFixed(0) + "px";
-    bubble.style.top = "auto";
+    bubble.style.top = (absTop - S.y).toFixed(0) + "px";
+    bubble.style.bottom = "auto";
   }
 
   updatePupils();
