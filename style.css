@@ -73,14 +73,14 @@ nav .links button {
 }
 nav .links button:hover { opacity: 1; }
 
-/* ---------- yaşayan logo ---------- */
+/* ---------- living logo ---------- */
 #mascot {
   position: fixed;
   left: 0;
   top: 0;
   z-index: 40;
   pointer-events: none;
-  /* JS yoksa da logo ekran ortasında dursun */
+  /* keep the logo centered even without JS */
   transform: translate3d(50vw, 42vh, 0);
 }
 #stage {
@@ -130,7 +130,7 @@ nav .links button:hover { opacity: 1; }
   75% { transform: rotate(-2.5deg); }
 }
 
-/* konuşma balonu */
+/* speech bubble */
 #bubble {
   position: absolute;
   min-width: 40px;
@@ -150,7 +150,7 @@ nav .links button:hover { opacity: 1; }
 }
 #bubble.show { opacity: 1; scale: 1; }
 
-/* dürtme parçacıkları */
+/* poke particles */
 .pt {
   position: fixed;
   width: 9px;
@@ -188,7 +188,7 @@ nav .links button:hover { opacity: 1; }
 }
 @keyframes bob { 50% { transform: translateY(6px); } }
 
-/* ---------- bölümler ---------- */
+/* ---------- sections ---------- */
 main { max-width: 920px; margin: 0 auto; padding: 0 32px; }
 
 section {
@@ -221,7 +221,7 @@ h2 .index {
   margin-bottom: 40px;
 }
 
-/* oyun kartları */
+/* game cards */
 .cards {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
@@ -258,7 +258,7 @@ h2 .index {
 .card:hover .soon { opacity: 1; }
 .card:nth-child(2):hover { transform: rotate(2deg) translateY(-8px); }
 
-/* iletişim */
+/* contact */
 .mail {
   display: inline-block;
   font-size: clamp(1.4rem, 4vw, 2.4rem);

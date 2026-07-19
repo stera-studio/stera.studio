@@ -1,0 +1,37 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "Start web server",
+      "type": "shell",
+      "command": "npm start",
+      "isBackground": true,
+      "problemMatcher": {
+        "pattern": {
+          "regexp": "^\\s*ERROR\\s+(.*)$",
+          "message": 1
+        },
+        "background": {
+          "activeOnStart": true,
+          "beginsPattern": "serve -l",
+          "endsPattern": "Accepting connections"
+        }
+      },
+      "presentation": {
+        "reveal": "always",
+        "panel": "dedicated",
+        "clear": true
+      }
+    },
+    {
+      "label": "Stop web server",
+      "type": "shell",
+      "command": "fuser -k 3000/tcp || echo 'Server is not running.'",
+      "problemMatcher": [],
+      "presentation": {
+        "reveal": "silent",
+        "panel": "shared"
+      }
+    }
+  ]
+}

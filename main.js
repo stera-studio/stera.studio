@@ -1,4 +1,4 @@
-/* stera studio — yaşayan logo */
+/* stera studio — living logo */
 (() => {
   "use strict";
 
@@ -13,11 +13,11 @@
   const bubbleText = document.getElementById("bubbleText");
 
   const RM = matchMedia("(prefers-reduced-motion: reduce)").matches;
-  // ?static: animasyonsuz son hal (ekran görüntüsü / sosyal kart için)
+  // ?static: final state without animations (for screenshots / social cards)
   const PARAMS = new URLSearchParams(location.search);
   const STATIC = PARAMS.has("static");
 
-  // ---------- lokalizasyon ----------
+  // ---------- localization ----------
   const I18N = {
     tr: {
       title: "stera studio — oyunlar yapıyoruz",
@@ -40,9 +40,9 @@
       bored: "sıkıldım…",
       sleep: "zZz…",
       sections: {
-        oyunlar: "oyunlarımız… yakında. söz.",
-        hakkimizda: "evet, bunlar biziz.",
-        iletisim: "bize yazın, cevap veririz!",
+        games: "oyunlarımız… yakında. söz.",
+        about: "evet, bunlar biziz.",
+        contact: "bize yazın, cevap veririz!",
       },
     },
     en: {
@@ -66,9 +66,9 @@
       bored: "i'm bored…",
       sleep: "zZz…",
       sections: {
-        oyunlar: "our games… soon. promise.",
-        hakkimizda: "yep, that's us.",
-        iletisim: "write to us — we reply!",
+        games: "our games… soon. promise.",
+        about: "yep, that's us.",
+        contact: "write to us — we reply!",
       },
     },
   };
@@ -99,7 +99,7 @@
   applyLang(lang);
   langBtn.addEventListener("click", () => applyLang(lang === "tr" ? "en" : "tr"));
 
-  // ---------- durum ----------
+  // ---------- state ----------
   const S = {
     x: innerWidth / 2, y: innerHeight * 0.42, size: 100,
     lean: 0, spin: 0, spinExtra: 0, spinExtraTarget: 0,
@@ -116,7 +116,7 @@
     { ex: 282, ey: 150, el: pupilR },
   ];
 
-  // ---------- yaylar ----------
+  // ---------- springs ----------
   function stepSpring(s, k = 0.18, damp = 0.8) {
     s.vel += -s.v * k;
     s.vel *= damp;
@@ -126,7 +126,7 @@
   const clamp = (v, a, b) => Math.max(a, Math.min(b, v));
   const ease = (t) => t * t * (3 - 2 * t);
 
-  // ---------- ses (chimes selamı) ----------
+  // ---------- audio (chime greeting) ----------
   let ac = null;
   function ensureAudio() {
     if (!ac) {
@@ -149,7 +149,7 @@
   }
   const PENTA = [392, 440, 523.25, 587.33, 659.25, 783.99];
 
-  // ---------- konuşma balonu ----------
+  // ---------- speech bubble ----------
   let typeTimer = null, hideTimer = null;
   function say(text, holdMs = 2400) {
     clearInterval(typeTimer);
@@ -166,7 +166,7 @@
     }
   }
 
-  // ---------- göz kırpma ----------
+  // ---------- blinking ----------
   function scheduleBlink() {
     setTimeout(() => {
       if (mascot.dataset.state === "awake" && mascot.dataset.eyes === "open") {
@@ -179,7 +179,7 @@
     }, 2500 + Math.random() * 4000);
   }
 
-  // ---------- uyku / sıkılma ----------
+  // ---------- sleep / boredom ----------
   function wake() {
     lastActive = Date.now();
     if (mascot.dataset.state === "sleep") {
@@ -192,7 +192,7 @@
     }
   }
 
-  // ---------- dürtme ----------
+  // ---------- poking ----------
   let pokeIdx = 0;
 
   function particles(x, y) {
@@ -241,7 +241,7 @@
 
   svg.addEventListener("pointerdown", (e) => poke(e.clientX, e.clientY));
 
-  // ---------- girdi takibi ----------
+  // ---------- input tracking ----------
   addEventListener("pointermove", (e) => {
     pointerX = e.clientX;
     pointerY = e.clientY;
@@ -250,7 +250,7 @@
   addEventListener("scroll", wake, { passive: true });
   addEventListener("pointerdown", ensureAudio, { once: true });
 
-  // ---------- bölüm mesajları ----------
+  // ---------- section messages ----------
   const io = new IntersectionObserver(
     (entries) => {
       entries.forEach((en) => {
@@ -258,7 +258,7 @@
           S.hop.vel -= 6;
           const msg = L.sections[en.target.id];
           if (msg) say(msg, 2600);
-          if (en.target.id === "iletisim") {
+          if (en.target.id === "contact") {
             eyeL.classList.add("wink");
             setTimeout(() => eyeL.classList.remove("wink"), 500);
           }
@@ -269,7 +269,7 @@
   );
   document.querySelectorAll("main section").forEach((s) => io.observe(s));
 
-  // ---------- gözbebekleri ----------
+  // ---------- pupils ----------
   function updatePupils() {
     const k = S.size / 500;
     const rot = ((S.spin + S.lean) * Math.PI) / 180;
@@ -286,7 +286,7 @@
     });
   }
 
-  // ---------- ana döngü ----------
+  // ---------- main loop ----------
   function frame() {
     const heroH = innerHeight * 0.8;
     const p = ease(clamp(scrollY / heroH, 0, 1));
@@ -300,15 +300,15 @@
     const tx = lerp(innerWidth / 2, dockX, p);
     const ty = lerp(innerHeight * 0.42, dockY, p);
 
-    // peşinden gelme hissi: hedefe yumuşak yaklaş
+    // follow feel: ease toward the target
     S.x += (tx - S.x) * 0.14;
     S.y += (ty - S.y) * 0.14;
 
-    // imlece doğru hafif eğilme
+    // slight lean toward the pointer
     const leanT = introDone ? clamp((pointerX - S.x) * 0.012, -6, 6) * (1 - p * 0.6) : 0;
     S.lean += (leanT - S.lean) * 0.08;
 
-    // scroll ile yuvarlanma
+    // rolling with scroll
     S.spinExtra += (S.spinExtraTarget - S.spinExtra) * 0.1;
     const spinT = (RM ? 0 : scrollY * 0.15) + S.spinExtra;
     S.spin += (spinT - S.spin) * 0.12;
@@ -327,7 +327,7 @@
 
     updatePupils();
 
-    // sıkılma / uyku
+    // boredom / sleep
     if (introDone) {
       const idle = Date.now() - lastActive;
       const st = mascot.dataset.state;
@@ -345,7 +345,7 @@
   }
   requestAnimationFrame(frame);
 
-  // ---------- açılış ----------
+  // ---------- intro ----------
   if (STATIC) {
     document.querySelectorAll(".half").forEach((h) => (h.style.transition = "none"));
     face.style.transition = "none";
@@ -358,7 +358,7 @@
     if (PARAMS.has("nomascot")) mascot.style.display = "none";
   } else {
     setTimeout(() => svg.classList.add("assembled"), RM ? 0 : 250);
-    setTimeout(() => { S.squash.vel += 0.12; }, RM ? 0 : 1150);   // "şlak"
+    setTimeout(() => { S.squash.vel += 0.12; }, RM ? 0 : 1150);   // "splat"
     setTimeout(() => face.classList.add("faceIn"), RM ? 100 : 1350);
     setTimeout(() => {
       introDone = true;
