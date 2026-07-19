@@ -1,4 +1,11 @@
 /* stera chase minigame */
+
+/* while the game is running, nothing on the page should be text-selectable
+   (frantic tapping/clicking would otherwise highlight the copy) */
+body:has(#minigame[data-game="on"]) {
+  -webkit-user-select: none;
+  user-select: none;
+}
 .btn {
   background: none;
   border: 2px solid var(--ink);

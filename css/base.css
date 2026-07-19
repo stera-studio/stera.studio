@@ -1,4 +1,10 @@
 /* tokens, reset and page layout */
+@font-face {
+  font-family: "marwan";
+  src: url("../assets/fonts/marwan.otf") format("opentype");
+  font-display: block;
+}
+
 :root {
   --paper: #ffffff;
   --ink: #101010;
