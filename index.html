@@ -17,6 +17,7 @@
       <a href="#games" data-i18n="nav.games">oyunlar</a>
       <a href="#about" data-i18n="nav.about">hakkımızda</a>
       <a href="#contact" data-i18n="nav.contact">iletişim</a>
+      <a href="#minigame" data-i18n="nav.minigame">minigame</a>
       <button id="langBtn" type="button" aria-label="switch language">en</button>
     </div>
   </nav>
@@ -96,6 +97,33 @@
       <a class="mail" href="mailto:hello@stera.studio">hello@stera.studio</a>
       <div class="socials">
         <a href="#">itch.io</a><a href="#">x</a><a href="#">instagram</a><a href="#">youtube</a>
+      </div>
+    </section>
+
+    <section id="minigame">
+      <h2><span class="index">04</span> <span data-i18n="mg.h">minigame</span></h2>
+      <p class="lead" data-i18n="mg.lead">henüz bir oyunumuz yok ama siz sıkılmayın diye küçük bir şey hazırladık.</p>
+      <button id="jumpInBtn" class="btn" type="button" data-i18n="mg.btn">oyuna atla</button>
+      <div id="gameBox">
+        <div id="gameHud"><span id="hudScore">0m</span> · <span data-i18n="mg.best">rekor</span> <span id="hudBest">0m</span></div>
+        <svg id="terrainSvg" aria-hidden="true"><path id="terrainPath"/><path id="spikePath"/></svg>
+        <div id="gameField" aria-hidden="true">
+          <div id="chaser">
+            <svg viewBox="0 0 100 100">
+              <g class="cloud">
+                <circle cx="34" cy="58" r="24"/><circle cx="58" cy="44" r="28"/><circle cx="74" cy="64" r="18"/>
+              </g>
+              <circle class="ceye" cx="50" cy="46" r="6"/><circle class="ceye" cx="68" cy="52" r="5"/>
+            </svg>
+          </div>
+        </div>
+        <div id="gameOverlay">
+          <p class="ovLine"><span data-i18n="mg.score">skor</span> <b id="ovScore">0m</b> · <span data-i18n="mg.best">rekor</span> <b id="ovBest">0m</b></p>
+          <div class="ovBtns">
+            <button id="againBtn" class="btn" type="button" data-i18n="mg.again">tekrar</button>
+            <button id="exitBtn" class="btn" type="button" data-i18n="mg.exit">çık</button>
+          </div>
+        </div>
       </div>
     </section>
   </main>
